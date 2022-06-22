@@ -1,0 +1,77 @@
+# Welcome to Serverless!
+#
+# For full config options, check out the Alibaba Cloud Function Compute
+# plugin docs:
+#
+# For documentation on Alibaba Cloud Function Compute itself:
+
+# Update the service name below with your own service name
+
+# $schema: https://raw.githubusercontent.com/lalcebo/json-schema/master/serverless/reference.json
+
+service: sls-nodejs
+
+frameworkVersion: '3'
+
+provider:
+  name: volcengine
+  credentials: ~/.volcenginecli/credentials # path must be absolute
+  stage: 'dev'
+  region: cn-beijing
+  runtime: node14/v1
+  memoryMB: 1024
+  requestTimeout: 10
+
+  apig:
+    name: sls-nodejs
+    serviceName: sls-nodejs
+    protocol:
+      - HTTP
+      - HTTPS
+    authSpec:
+      enable: true
+
+plugins:
+  - "@byted-paas/serverless-volcengine-scf"
+package:
+  individually: true
+  exclude:
+    - package-lock.json
+    - .gitignore
+    - .git/**
+
+custom:
+  vpcPlugin:
+    CidrBlock: 192.168.0.0/16
+    VpcName: vefaas-nodejs
+    Subnet:
+      CidrBlock: 192.168.0.0/24
+      ZoneId: cn-beijing-a
+      SubnetName: vefaas-nodejs
+
+functions:
+  hello:
+    requestTimeout: 10
+    envs:
+      aaaasdf: kkasdfasdf
+      service: ${self:service}
+      APIG_DEPLOYMENT_ID: ${sls:instanceId}
+    events:
+      - timer:
+          name: hellotest1
+          cron: '*/1 * * * *'
+          payload: 测试时测试
+      - http:
+          name: helloapig
+          path: '/slshello'
+          method:
+            - POST
+            - GET
+            - PUT
+            - DELETE
+            - HEAD
+            - OPTIONS
+            - CONNECT
+          cors: true
+          requestTimeout: 30
+          description: 'helloapig'

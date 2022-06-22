@@ -1,0 +1,13 @@
+{
+  "name": "volcengine-java",
+  "version": "1.0.0",
+  "description":"用于 serverless Framework 的火山引擎函数计算 java 模板",
+  "license": "MIT",
+  "keywords": [
+    "serverless",
+    "volcengine"
+  ],
+  "devDependencies": {
+    "@byted-paas/serverless-volcengine-scf": "^0.0.1"
+  }
+}

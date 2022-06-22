@@ -1,0 +1,14 @@
+{
+  "name": "volcengine-nodjs",
+  "version": "1.0.0",
+  "description":"用于 serverless Framework 的火山引擎函数计算 nodejs 模板",
+  "main": "index.py",
+  "license": "MIT",
+  "keywords": [
+    "serverless",
+    "volcengine"
+  ],
+  "devDependencies": {
+    "@byted-paas/serverless-volcengine-scf": "^0.0.1"
+  }
+}
